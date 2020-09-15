@@ -1,0 +1,76 @@
+# DLR-RMC camera calibration file by DLR CalLab.
+# Parameters for describing the geometry of pinhole images.
+# Created: Thu Sep 06 13:59:23 2018
+# 
+# NOTE:
+# This file defines the parameters of one camera or multiple cameras.
+# In the case of multiple cameras, "camera." becomes "camera.<id>.".
+# The keys of parameters of the left and right cameras of a stereo
+# system would start with "camera.0." and "camera.1." respectively.
+
+# Version number of the parameter file.
+
+version=2
+
+# Image coordinate origin at the center of the upper-left pixel (center)
+# or at the upper-left corner of the upper-left pixel (corner).
+
+origin=center
+
+# The extrinsic parameters describe the transformation of a point Pc in the
+# camera coordinate system into a point Pw in the world coordinate system,
+# e.g. the tool-center-point frame at the top of a robotic manipulator.
+# NOTE: This is inverse to OpenCV.
+#
+# Pw = R*Pc + T
+#
+# Default: [1 0 0; 0 1 0; 0 0 1] [0 0 0]
+
+camera.0.R=[ 1.00000 0.000000 0.000000; 0.000000 1.00000 0.000000; 0.000000 0.000000 1.00000]
+camera.0.T=[ 0.000000 0.000000 0.000000]
+
+# The point Pc in the camera coordinate system is projected and transformed
+# into distored coordinates [u v]. All parameters are used in the same way as
+# in OpenCV.
+#
+# Pc = [X Y Z]^T with Z > 0
+# x = X/Z
+# y = Y/Z
+#
+# r2 = x2 + y2
+# u = x*(1 + k1*r2 + k2*r4 + k3*r6) + 2*p1*x*y + p2*(r2+2*x2)
+# v = y*(1 + k1*r2 + k2*r4 + k3*r6) + p1*(r2+2*y2) + 2*p2*x*y
+#
+# Default: 0 for all parameters that are not given
+
+camera.0.k1= -0.0899712
+
+# WARNING: Decentering distortion parameters do comply with the OpenCV
+# implementation but do not comply with [Weng92] (exchange p1 for p2).
+
+camera.0.p1= -0.00169304
+camera.0.p2= -0.000343253
+
+# The linear intrinsic parameters are given as matrix:
+#
+# A=[fx skew principal_x; 0 fy principal_y; 0 0 1]
+#
+# [i k 1]^T = A*[u v 1]^T
+
+camera.0.A=[ 3056.29 0.000000 596.089; 0.000000 3037.15 439.422; 0.000000 0.000000 1.00000]
+
+# Image size in pixel
+
+camera.0.width= 1280
+camera.0.height= 1024
+
+# RMS after intrinsic calibration
+
+camera.0.rmsInt= 0.151591
+
+
+# Combined RMS after intrinsic stereo calibration
+
+camera.rmsInt= 0.151591
+
+# End of file.
